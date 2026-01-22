@@ -1,5 +1,5 @@
 import { Question } from "../types/Question";
-import questionsData from "/./home/vfabricio/Documentos/app-quiz/assets/questions_300.json";
+import questionsData from "../../assets/questions_300.json";
 
 class QuestionService {
   private questions: Question[] = [];

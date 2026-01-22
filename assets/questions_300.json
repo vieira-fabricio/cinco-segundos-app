@@ -1,0 +1,564 @@
+[
+  {
+    "id": 1,
+    "question": "Quantos continentes existem no mundo?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "correctAnswer": "7"
+  },
+  {
+    "id": 2,
+    "question": "Quanto é 2 + 2?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correctAnswer": "4"
+  },
+  {
+    "id": 3,
+    "question": "Qual planeta é conhecido como planeta vermelho?",
+    "options": [
+      "Terra",
+      "Marte",
+      "Vênus",
+      "Júpiter"
+    ],
+    "correctAnswer": "Marte"
+  },
+  {
+    "id": 4,
+    "question": "Quantos meses têm 28 dias?",
+    "options": ["1", "2", "11", "12"],
+    "correctAnswer": "12"
+  },
+  {
+    "id": 5,
+    "question": "Qual animal é conhecido como rei da selva?",
+    "options": [
+      "Tigre",
+      "Leão",
+      "Elefante",
+      "Urso"
+    ],
+    "correctAnswer": "Leão"
+  },
+  {
+    "id": 6,
+    "question": "Qual é a capital do Brasil?",
+    "options": [
+      "Rio de Janeiro",
+      "Brasília",
+      "São Paulo",
+      "Salvador"
+    ],
+    "correctAnswer": "Brasília"
+  },
+  {
+    "id": 7,
+    "question": "Qual desses é um animal?",
+    "options": [
+       "Cadeira",
+       "Cachorro", "Mesa", "Relógio"
+    ],
+    "correctAnswer": "Cachorro"
+  },
+    {
+    "id": 8,
+    "question": "Qual dessas palavras está escrita corretamente?",
+    "options": ["Paralelepípedo", "Paralelipípedo", "Paralelepipedo", "Paralelipedo"],
+    "correctAnswer": "Paralelepípedo"
+  },
+  {
+    "id": 9,
+    "question": "O que normalmente usamos para escrever?",
+    "options": ["Lápis", "Sapato", "Copo", "Chave"],
+    "correctAnswer": "Lápis"
+  },
+  {
+    "id": 10,
+    "question": "Qual é uma cor?",
+    "options": ["Azul", "Mesa", "Carro", "Janela"],
+    "correctAnswer": "Azul"
+  },
+  {
+    "id": 11,
+    "question": "Qual desses voa?",
+    "options": ["Cachorro", "Peixe", "Pássaro", "Cavalo"],
+    "correctAnswer": "Pássaro"
+  },
+  {
+    "id": 12,
+    "question": "Qual número vem a seguir? 2, 4, 8, 16, ?",
+    "options": ["18", "24", "32", "30"],
+    "correctAnswer": "32"
+  },
+  {
+    "id": 13,
+    "question": "O que usamos para ver?",
+    "options": ["Nariz", "Orelha", "Olho", "Boca"],
+    "correctAnswer": "Olho"
+  },
+  {
+    "id":14,
+    "question": "Qual é um meio de transporte?",
+    "options": ["Geladeira", "Bicicleta", "Travesseiro", "Livro"],
+    "correctAnswer": "Bicicleta"
+  },
+  {
+    "id": 15,
+    "question": "Qual desses é um alimento?",
+    "options": ["Arroz", "Telefone", "Sapato", "Espelho"],
+    "correctAnswer": "Arroz"
+  },
+  {
+    "id": 16,
+    "question": "Qual dessas cores NÃO aparece na bandeira do Brasil?",
+    "options": ["Verde", "Amarelo", "Azul", "Vermelho"],
+    "correctAnswer": "Vermelho"
+  },
+  {
+    "id": 17,
+    "question": "Qual desses é usado para dormir?",
+    "options": ["Travesseiro", "Fogão", "Computador", "Martelo"],
+    "correctAnswer": "Travesseiro"
+  },
+  {
+    "id": 18,
+    "question": "Qual desses é um planeta?",
+    "options": ["Lua", "Sol", "Marte", "Estrela"],
+    "correctAnswer": "Marte"
+  },
+  {
+    "id": 19,
+    "question": "O que usamos para ouvir música?",
+    "options": ["Fone de ouvido", "Colher", "Caderno", "Janela"],
+    "correctAnswer": "Fone de ouvido"
+  },
+  {
+    "id": 20,
+    "question": "Qual dessas palavras é plural?",
+    "options": ["Lápis", "Cão", "Mão", "Pão"],
+    "correctAnswer": "Lápis"
+  },
+  {
+    "id": 21,
+    "question": "Qual desses é um número?",
+    "options": ["Sete", "Azul", "Mesa", "Rápido"],
+    "correctAnswer": "Sete"
+  },
+  {
+    "id": 22,
+    "question": "Qual desses é um esporte?",
+    "options": ["Futebol", "Geladeira", "Caneta", "Relógio"],
+    "correctAnswer": "Futebol"
+  },
+  {
+    "id": 23,
+    "question": "O que usamos para cortar papel?",
+    "options": ["Tesoura", "Travesseiro", "Copo", "Chinelo"],
+    "correctAnswer": "Tesoura"
+  },
+  {
+    "id": 24,
+    "question": "Se você tem apenas UM fósforo e entra numa sala escura com uma vela, um fogão e uma lareira, o que você acende primeiro?",
+    "options": ["Vela", "Fogão", "Lareira", "Fósforo"],
+    "correctAnswer": "Fósforo"
+  },
+  {
+    "id": 25,
+    "question": "Qual desses vive na água?",
+    "options": ["Peixe", "Gato", "Pássaro", "Cavalo"],
+    "correctAnswer": "Peixe"
+  },
+  {
+    "id": 26,
+    "question": "Qual desses é um objeto eletrônico?",
+    "options": ["Celular", "Livro", "Cadeira", "Camisa"],
+    "correctAnswer": "Celular"
+  },
+  {
+    "id": 27,
+    "question": "Qual desses é um sentimento?",
+    "options": ["Alegria", "Mesa", "Azul", "Corre"],
+    "correctAnswer": "Alegria"
+  },
+  {
+    "id": 28,
+    "question": "Qual desses números é maior?",
+    "options": ["0.5", "0.75", "1/2", "50%"],
+    "correctAnswer": "0.75"
+  },
+  {
+    "id": 29,
+    "question": "O que usamos para escovar os dentes?",
+    "options": ["Escova de dentes", "Sabonete", "Toalha", "Pente"],
+    "correctAnswer": "Escova de dentes"
+  },
+  {
+    "id": 30,
+    "question": "Qual desses é um lugar?",
+    "options": ["Praia", "Caneta", "Relógio", "Teclado"],
+    "correctAnswer": "Praia"
+  },
+  {
+    "id": 31,
+    "question": "Qual desses é um vegetal?",
+    "options": ["Cenoura", "Chocolate", "Bolo", "Sorvete"],
+    "correctAnswer": "Cenoura"
+  },
+  {
+    "id": 32,
+    "question": "Qual dessas frases está correta?",
+    "options": [
+      "Fazem dois anos",
+      "Faz dois anos",
+      "Fazem dois ano",
+      "Faz dois ano"
+    ],
+    "correctAnswer": "Faz dois anos"
+  },
+  {  
+    "id": 33,
+    "question": "Qual desses usamos para nos vestir?",
+    "options": ["Camisa", "Copo", "Livro", "Garfo"],
+    "correctAnswer": "Camisa"
+  },
+  {
+    "id": 34,
+    "question": "Qual desses NÃO é um mamífero?",
+    "options": ["Golfinho", "Morcego", "Baleia", "Tubarão"],
+    "correctAnswer": "Tubarão"
+  },
+  {
+    "id": 35,
+    "question": "Qual desses números é primo?",
+    "options": ["9", "15", "17", "21"],
+    "correctAnswer": "17"
+  },
+  {
+    "id": 36,
+    "question": "Quantas letras tem a palavra 'QUARENTA'?",
+    "options": ["7", "8", "6", "9"],
+    "correctAnswer": "8"
+  },
+  {
+    "id": 37,
+    "question": "Qual é a capital da Austrália?",
+    "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+    "correctAnswer": "Canberra"
+  },
+  {
+    "id": 38,
+    "question": "Qual desses é um polígono com 8 lados?",
+    "options": ["Hexágono", "Heptágono", "Octógono", "Decágono"],
+    "correctAnswer": "Octógono"
+  },
+  {
+    "id": 39,
+    "question": "Qual desses metais é líquido à temperatura ambiente?",
+    "options": ["Ferro", "Alumínio", "Mercúrio", "Cobre"],
+    "correctAnswer": "Mercúrio"
+  },
+  {
+    "id": 40,
+    "question": "Qual dessas palavras NÃO rima com 'CORAÇÃO'?",
+    "options": ["Paixão", "Emoção", "Razão", "Coração"],
+    "correctAnswer": "Coração"
+  },
+  {
+    "id": 41,
+    "question": "Qual desses planetas não possui anéis?",
+    "options": ["Saturno", "Urano", "Júpiter", "Marte"],
+    "correctAnswer": "Marte"
+  },
+  {
+    "id": 42,
+    "question": "Qual dessas palavras está escrita corretamente?",
+    "options": ["Excessão", "Exceção", "Excessãoo", "Exessão"],
+    "correctAnswer": "Exceção"
+  },
+  {
+    "id": 43,
+    "question": "Qual desses animais é um réptil?",
+    "options": ["Sapo", "Cobra", "Golfinho", "Morcego"],
+    "correctAnswer": "Cobra"
+  },
+  {
+    "id": 44,
+    "question": "Se um avião cai na fronteira entre dois países, onde os sobreviventes são enterrados?",
+    "options": [
+      "No país A",
+      "No país B",
+      "Na fronteira",
+      "Não são enterrados"
+    ],
+    "correctAnswer": "Não são enterrados"
+  },
+  {
+    "id": 45,
+    "question": "Qual desses é um triângulo com todos os lados diferentes?",
+    "options": ["Equilátero", "Isósceles", "Escaleno", "Retângulo"],
+    "correctAnswer": "Escaleno"
+  },
+  {
+    "id": 46,
+    "question": "Qual desses países NÃO fica na Europa?",
+    "options": ["Polônia", "Hungria", "Suécia", "México"],
+    "correctAnswer": "México"
+  },
+  {
+    "id": 47,
+    "question": "Qual desses instrumentos mede a pressão atmosférica?",
+    "options": ["Termômetro", "Higrômetro", "Barômetro", "Anemômetro"],
+    "correctAnswer": "Barômetro"
+  },
+  {
+    "id": 48,
+    "question": "O que pesa mais?",
+    "options": [
+      "1kg de ferro",
+      "1kg de algodão",
+      "Os dois pesam igual",
+      "Depende do volume"
+    ],
+    "correctAnswer": "Os dois pesam igual"
+  },
+  {
+    "id": 49,
+    "question": "Qual dessas cores NÃO é primária?",
+    "options": ["Vermelho", "Azul", "Amarelo", "Verde"],
+    "correctAnswer": "Verde"
+  },
+  {
+    "id": 50,
+    "question": "Qual desses é um verbo?",
+    "options": ["Correr", "Rápido", "Mesa", "Azul"],
+    "correctAnswer": "Correr"
+  },
+  {
+    "id": 51,
+    "question": "Qual desses é um tipo de nuvem?",
+    "options": ["Cúmulos", "Estratosfera", "Troposfera", "Atmosfera"],
+    "correctAnswer": "Cúmulos"
+  },
+  {
+    "id": 52,
+    "question": "Qual dessas alternativas está INCORRETA?",
+    "options": [
+      "Todos os gatos são animais",
+      "Alguns animais são gatos",
+      "Todos os animais são gatos",
+      "Gatos são seres vivos"
+    ],
+    "correctAnswer": "Todos os animais são gatos"
+  },
+  { "id": 53,
+    "question": "Qual desses NÃO é um continente?",
+    "options": ["África", "Europa", "Antártica", "Groenlândia"],
+    "correctAnswer": "Groenlândia"
+  },
+  {
+    "id": 54,
+    "question": "Qual dessas figuras tem exatamente um par de lados paralelos?",
+    "options": ["Quadrado", "Losango", "Trapézio", "Retângulo"],
+    "correctAnswer": "Trapézio"
+  },
+  {
+    "id": 55, 
+    "question": "Qual desses é um número irracional?",
+    "options": ["0.5", "3/4", "√2", "1.25"],
+    "correctAnswer": "√2"
+  },
+  {
+    "id": 56,
+    "question": "Quantos segundos existem em um minuto?",
+    "options": ["60", "100", "1", "Depende"],
+    "correctAnswer": "60"
+  },
+  {
+    "id": 57,
+    "question": "Qual desses escritores escreveu 'Dom Quixote'?",
+    "options": ["Miguel de Cervantes", "Fernando Pessoa", "Machado de Assis", "Camões"],
+    "correctAnswer": "Miguel de Cervantes"
+  },
+  {
+    "id": 58,
+    "question": "Qual desses gases é mais abundante na atmosfera terrestre?",
+    "options": ["Oxigênio", "Gás carbônico", "Nitrogênio", "Hidrogênio"],
+    "correctAnswer": "Nitrogênio"
+  },
+  {
+    "id": 59,
+    "question": "Qual dessas palavras é um advérbio?",
+    "options": ["Rapidamente", "Rápido", "Rapidez", "Correr"],
+    "correctAnswer": "Rapidamente"
+  },
+  {
+    "id": 60,
+    "question": "Qual dessas letras vem primeiro no alfabeto?",
+    "options": ["Z", "A", "M", "B"],
+    "correctAnswer": "A"
+  },
+  {
+    "id": 61,
+    "question": "Qual desses NÃO é um mamífero?",
+    "options": ["Golfinho", "Morcego", "Baleia", "Tubarão"],
+    "correctAnswer": "Tubarão"
+  },
+  {
+    "id": 62,
+    "question": "Qual desses números é primo?",
+    "options": ["9", "15", "17", "21"],
+    "correctAnswer": "17"
+  },
+  {
+    "id": 63,
+    "question": "Qual é a capital da Austrália?",
+    "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+    "correctAnswer": "Canberra"
+  },
+  {
+    "id": 64,
+    "question": "Qual dessas alternativas é verdadeira?",
+    "options": [
+      "Todo número par é divisível por 4",
+      "Todo número primo é ímpar",
+      "Todo quadrado é um retângulo",
+      "Todo retângulo é um quadrado"
+    ],
+    "correctAnswer": "Todo quadrado é um retângulo"
+  },
+  {
+    "id": 65,
+    "question": "Qual desses é um polígono com 8 lados?",
+    "options": ["Hexágono", "Heptágono", "Octógono", "Decágono"],
+    "correctAnswer": "Octógono"
+  },
+  {
+    "id": 66,
+    "question": "Qual desses metais é líquido à temperatura ambiente?",
+    "options": ["Ferro", "Alumínio", "Mercúrio", "Cobre"],
+    "correctAnswer": "Mercúrio"
+  },
+  {
+    "id": 67,
+    "question": "Qual dessas palavras contém MAIS letras?",
+    "options": ["Mil", "Milhão", "Milhões", "Mil"],
+    "correctAnswer": "Milhões"
+  },
+  {
+    "id": 68,
+    "question": "Qual desses planetas não possui anéis?",
+    "options": ["Saturno", "Urano", "Júpiter", "Marte"],
+    "correctAnswer": "Marte"
+  },
+  {
+    "id": 60,
+    "question": "Qual dessas palavras está escrita corretamente?",
+    "options": ["Excessão", "Exceção", "Excessãoo", "Exessão"],
+    "correctAnswer": "Exceção"
+  },
+  {
+    "id": 70,
+    "question": "Qual desses animais é um réptil?",
+    "options": ["Sapo", "Cobra", "Golfinho", "Morcego"],
+    "correctAnswer": "Cobra"
+  },
+  {
+    "id": 71,
+    "question": "Qual número falta? 1, 1, 2, 3, 5, ?",
+    "options": ["6", "7", "8", "5"],
+    "correctAnswer": "8"
+  },
+  {
+    "id": 72,
+    "question": "Qual desses é um triângulo com todos os lados diferentes?",
+    "options": ["Equilátero", "Isósceles", "Escaleno", "Retângulo"],
+    "correctAnswer": "Escaleno"
+  },
+  {
+    "id": 73,
+    "question": "Qual desses países NÃO fica na Europa?",
+    "options": ["Polônia", "Hungria", "Suécia", "México"],
+    "correctAnswer": "México"
+  },
+  {
+    "id": 74,
+    "question": "Qual desses instrumentos mede a pressão atmosférica?",
+    "options": ["Termômetro", "Higrômetro", "Barômetro", "Anemômetro"],
+    "correctAnswer": "Barômetro"
+  },
+  {
+    "id": 75,
+    "question": "Qual dessas opções NÃO é um número?",
+    "options": ["Zero", "Dois", "Três", "Nenhuma"],
+    "correctAnswer": "Nenhuma"
+  },
+  {
+    "id": 76,
+    "question": "Qual dessas cores NÃO é primária?",
+    "options": ["Vermelho", "Azul", "Amarelo", "Verde"],
+    "correctAnswer": "Verde"
+  },
+  {
+    "id": 77,
+    "question": "Qual desses é um verbo?",
+    "options": ["Correr", "Rápido", "Mesa", "Azul"],
+    "correctAnswer": "Correr"
+  },
+  {
+    "id": 78,
+    "question": "Qual desses é um tipo de nuvem?",
+    "options": ["Cúmulos", "Estratosfera", "Troposfera", "Atmosfera"],
+    "correctAnswer": "Cúmulos"
+  },
+  {
+    "id": 79,
+    "question": "Se você está correndo numa corrida e ultrapassa o segundo colocado, em que posição você fica?",
+    "options": ["Primeiro", "Segundo", "Terceiro", "Quarto"],
+    "correctAnswer": "Segundo"
+  },
+  {
+    "id": 80,
+    "question": "Qual desses NÃO é um continente?",
+    "options": ["África", "Europa", "Antártica", "Groenlândia"],
+    "correctAnswer": "Groenlândia"
+  },
+  {
+    "id": 81,
+    "question": "Qual dessas figuras tem exatamente um par de lados paralelos?",
+    "options": ["Quadrado", "Losango", "Trapézio", "Retângulo"],
+    "correctAnswer": "Trapézio"
+  },
+  {
+    "id": 82,
+    "question": "Qual desses é um número irracional?",
+    "options": ["0.5", "3/4", "√2", "1.25"],
+    "correctAnswer": "√2"
+  },
+  {
+    "id": 83,
+    "question": "Qual desses escritores escreveu 'Dom Quixote'?",
+    "options": ["Miguel de Cervantes", "Fernando Pessoa", "Machado de Assis", "Camões"],
+    "correctAnswer": "Miguel de Cervantes"
+  },
+  {
+    "id": 84,
+    "question": "Qual desses gases é mais abundante na atmosfera terrestre?",
+    "options": ["Oxigênio", "Gás carbônico", "Nitrogênio", "Hidrogênio"],
+    "correctAnswer": "Nitrogênio"
+  },
+  {
+    "id": 85,
+    "question": "Qual dessas palavras é um advérbio?",
+    "options": ["Rapidamente", "Rápido", "Rapidez", "Correr"],
+    "correctAnswer": "Rapidamente"
+  }
+]
