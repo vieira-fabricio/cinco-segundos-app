@@ -9,7 +9,7 @@ class QuestionService {
   }
 
   getAll(): Question[] {
-    return this.questions;
+    return [...this.questions];
   }
 
   getRandom(amount: number): Question[] {

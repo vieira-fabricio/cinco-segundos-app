@@ -4,7 +4,6 @@ import { Question } from "../types/Question";
 
 const INITIAL_TIME = 5;
 const QUESTIONS_PER_GAME = 50;
-const BEST_SCORE_KEY = "@best_score";
 
 export function useGameLogic() {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -13,9 +12,12 @@ export function useGameLogic() {
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [canRevive, setCanRevive] = useState(false);
 
   // Inicializa jogo
   const startGame = useCallback(() => {
+    if (questions.length > 0 && !isGameOver) return;
+
     const selectedQuestions = questionService.getRandom(QUESTIONS_PER_GAME);
     setQuestions(selectedQuestions);
     setCurrentIndex(0);
@@ -23,12 +25,15 @@ export function useGameLogic() {
     setScore(0);
     setTimeLeft(INITIAL_TIME);
     setIsGameOver(false);
-  }, []);
+  }, [questions.length, isGameOver]);
 
   // Reviver após Rewarded Ad
   const revive = () => {
+    if (!canRevive) return;
+
     setIsGameOver(false);
     setTimeLeft(INITIAL_TIME);
+    setCanRevive(false);
   };
 
   // Timer
@@ -38,6 +43,7 @@ export function useGameLogic() {
     if (timeLeft <= 0) {
       const timeout = setTimeout(() => {
         setIsGameOver(true);
+        setCanRevive(true);
       }, 600);
 
       return () => clearTimeout(timeout);
@@ -64,9 +70,11 @@ export function useGameLogic() {
         setTimeLeft(INITIAL_TIME);
       } else {
         setIsGameOver(true);
+        setCanRevive(true);
       }
     } else {
       setIsGameOver(true);
+      setCanRevive(true);
     }
   };
 

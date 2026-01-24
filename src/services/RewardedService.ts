@@ -8,6 +8,7 @@ import {
 class RewardedService {
   private rewardedAd: RewardedAd | null = null;
   private loaded = false;
+  private onRewardCallback: (() => void) | null = null;
   private unsubscribeFns: Array<() => void> = [];
 
   constructor() {
@@ -16,15 +17,25 @@ class RewardedService {
 
   private createAd() {
 
-    // Limpa listeners antigos
-    this.unsubscribeFns.forEach(unsub => unsub());
-    this.unsubscribeFns = [];
+    this.cleanupListeners();
 
     this.loaded = false;
 
     this.rewardedAd = RewardedAd.createForAdRequest(
         __DEV__ ? TestIds.REWARDED : 'ca-app-pub-3935068450266170/7343609214'
     );
+
+    this.subscribeToEvents();
+  }
+
+  // Limpa listeners antigos
+  private cleanupListeners() {
+    this.unsubscribeFns.forEach(unsub => unsub());
+    this.unsubscribeFns = [];
+  }
+
+  private subscribeToEvents() {
+    if (!this.rewardedAd) return;
 
     this.unsubscribeFns.push(
       this.rewardedAd.addAdEventListener(
@@ -39,8 +50,10 @@ class RewardedService {
     this.unsubscribeFns.push(
       this.rewardedAd.addAdEventListener(
         RewardedAdEventType.EARNED_REWARD,
-        reward => {
-          console.log('[ADMOB] Recompensa recebida:', reward);
+        () => {
+          console.log('[ADMOB] Recompensa concedida');
+          this.onRewardCallback?.();
+          this.onRewardCallback = null;
         }
       )
     );
@@ -50,10 +63,28 @@ class RewardedService {
         AdEventType.ERROR,
         error => {
           console.log('[ADMOB] Erro no Rewarded:', error);
-          this.loaded = false;
+          this.resetAd();
         }
       )
     );
+
+    this.unsubscribeFns.push(
+      this.rewardedAd.addAdEventListener(
+        AdEventType.CLOSED,
+        () => {
+          console.log('[ADMOB] Rewarded fechado');
+          this.resetAd();
+        }
+      )
+    );
+  }
+
+  private resetAd() {
+    this.cleanupListeners();
+    this.rewardedAd = null;
+    this.loaded = false;
+    this.onRewardCallback = null;
+    this.createAd();
   }
 
   public isLoaded(): boolean {
@@ -61,24 +92,17 @@ class RewardedService {
   }
 
   load() {
-    if (!this.loaded) {
-      this.rewardedAd?.load();
-    }
+    if (!this.rewardedAd || this.loaded) return;
+    this.rewardedAd.load();
   }
 
   public show(onReward: () => void) {
-    if (!this.loaded || !this.rewardedAd) return;
+    if (!this.rewardedAd || !this.loaded) return;
 
-    this.rewardedAd.show();
+    this.onRewardCallback = onReward;
     this.loaded = false;
 
-    const unsubscribe = this.rewardedAd.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      () => {
-        onReward();
-        unsubscribe();
-      }
-    );
+    this.rewardedAd.show();
   }
 }
 
