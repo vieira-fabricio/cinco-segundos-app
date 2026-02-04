@@ -20,7 +20,8 @@ export default function GameScreen() {
           answerQuestion, 
           currentQuestion, 
           timeLeft,
-          startGame 
+          startGame,
+          isFinalGameOver
         } = useGameLogic();
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -42,13 +43,6 @@ export default function GameScreen() {
   useEffect(() => {
     rewardedService.load();
   }, []);
-
-  // Verifica se pode mostrar continuar
-  useEffect(() => {
-    if (isGameOver && rewardedService.isLoaded()) {
-      setShowContinueOption(true);
-    }
-  }, [isGameOver]);
 
   const handleContinue = () => {
     rewardedService.show(() => {
@@ -77,13 +71,23 @@ export default function GameScreen() {
 
   // GAME OVER
   useEffect(() => {
-    if (isGameOver) {
+    if (isFinalGameOver) {
       router.replace({
         pathname: "/game-over",
         params: { score: String(score) },
       });
     }
-  }, [isGameOver]);
+  }, [isFinalGameOver, score]);
+
+  //CONTINUAR
+  useEffect(() => {
+    if (isGameOver && !isFinalGameOver) {
+      setShowContinueOption(rewardedService.isLoaded());
+    } else {
+      setShowContinueOption(false);
+    }
+  }, [isGameOver, isFinalGameOver]);
+
 
   if (!currentQuestion) {
     return (
@@ -91,6 +95,33 @@ export default function GameScreen() {
         <Text>Carregando...</Text>
     </View>
     )
+  }
+
+  if (isGameOver && !isFinalGameOver) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.scoreText}>Score: {score}</Text>
+
+        {showContinueOption && (
+          <TouchableOpacity onPress={handleContinue}>
+            <Text>Continuar assistindo anúncio</Text>
+          </TouchableOpacity>
+        )}
+
+        {!showContinueOption && (
+          <TouchableOpacity
+            onPress={() =>
+              router.replace({
+                pathname: "/game-over",
+                params: { score: String(score) },
+              })
+            }
+          >
+          <Text>Finalizar jogo</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    );
   }
 
   return (

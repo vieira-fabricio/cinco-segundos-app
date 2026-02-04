@@ -11,13 +11,12 @@ export function useGameLogic() {
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
   const [score, setScore] = useState(0);
+  
   const [isGameOver, setIsGameOver] = useState(false);
-  const [canRevive, setCanRevive] = useState(false);
+  const [isFinalGameOver, setIsFinalGameOver] = useState(false);
 
   // Inicializa jogo
   const startGame = useCallback(() => {
-    if (questions.length > 0 && !isGameOver) return;
-
     const selectedQuestions = questionService.getRandom(QUESTIONS_PER_GAME);
     setQuestions(selectedQuestions);
     setCurrentIndex(0);
@@ -25,25 +24,28 @@ export function useGameLogic() {
     setScore(0);
     setTimeLeft(INITIAL_TIME);
     setIsGameOver(false);
-  }, [questions.length, isGameOver]);
+    setIsFinalGameOver(false);
+  }, []);
 
   // Reviver após Rewarded Ad
   const revive = () => {
-    if (!canRevive) return;
+    if (!currentQuestion) return;
 
     setIsGameOver(false);
     setTimeLeft(INITIAL_TIME);
-    setCanRevive(false);
+  };
+
+  const failGame = () => {
+    setIsGameOver(true);
   };
 
   // Timer
   useEffect(() => {
-    if (isGameOver || !currentQuestion) return;
+    if (isGameOver || isFinalGameOver || !currentQuestion) return;
 
     if (timeLeft <= 0) {
       const timeout = setTimeout(() => {
-        setIsGameOver(true);
-        setCanRevive(true);
+        failGame();
       }, 600);
 
       return () => clearTimeout(timeout);
@@ -54,11 +56,11 @@ export function useGameLogic() {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [timeLeft, isGameOver, currentQuestion]);
+  }, [timeLeft, isGameOver, isFinalGameOver, currentQuestion]);
 
   // Responder pergunta
   const answerQuestion = (answer: string) => {
-    if (!currentQuestion) return;
+    if (!currentQuestion || isGameOver) return;
 
     if (answer === currentQuestion.correctAnswer) {
       const nextIndex = currentIndex + 1;
@@ -70,11 +72,10 @@ export function useGameLogic() {
         setTimeLeft(INITIAL_TIME);
       } else {
         setIsGameOver(true);
-        setCanRevive(true);
+        setIsFinalGameOver(true); // terminou as perguntas
       }
     } else {
-      setIsGameOver(true);
-      setCanRevive(true);
+      failGame();
     }
   };
 
@@ -83,6 +84,7 @@ export function useGameLogic() {
     timeLeft,
     score,
     isGameOver,
+    isFinalGameOver,
     startGame,
     answerQuestion,
     revive,
