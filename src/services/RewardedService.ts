@@ -5,102 +5,96 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 
+type RewardCallback = () => void;
+
 class RewardedService {
   private rewardedAd: RewardedAd | null = null;
-  private loaded = false;
-  private onRewardCallback: (() => void) | null = null;
-  private unsubscribeFns: Array<() => void> = [];
+  private isAdLoaded = false;
+  private rewardCallback: RewardCallback | null = null;
+  private unsubscribe: (() => void) | null = null;
 
-  constructor() {
-    this.createAd();
-  }
+  /* =====================
+     Inicialização
+  ====================== */
 
   private createAd() {
 
-    this.cleanupListeners();
-
-    this.loaded = false;
+    this.isAdLoaded = false;
 
     this.rewardedAd = RewardedAd.createForAdRequest(
-        __DEV__ ? TestIds.REWARDED : 'ca-app-pub-3935068450266170/7343609214'
+        __DEV__ 
+        ? TestIds.REWARDED 
+        : 'ca-app-pub-3935068450266170/7343609214'
     );
 
-    this.subscribeToEvents();
+    this.subscribe();
   }
 
-  // Limpa listeners antigos
-  private cleanupListeners() {
-    this.unsubscribeFns.forEach(unsub => unsub());
-    this.unsubscribeFns = [];
-  }
-
-  private subscribeToEvents() {
+  private subscribe() {
     if (!this.rewardedAd) return;
 
-    this.unsubscribeFns.push(
-      this.rewardedAd.addAdEventListener(
-        RewardedAdEventType.LOADED,
-        () => {
+    this.unsubscribe = this.rewardedAd.addAdEventsListener(event => {
+      switch (event.type) {
+        case RewardedAdEventType.LOADED:
           console.log('[ADMOB] Rewarded carregado');
-          this.loaded = true;
-        }
-      )
-    );
+          this.isAdLoaded = true;
+          break;
 
-    this.unsubscribeFns.push(
-      this.rewardedAd.addAdEventListener(
-        RewardedAdEventType.EARNED_REWARD,
-        () => {
+        case RewardedAdEventType.EARNED_REWARD:
           console.log('[ADMOB] Recompensa concedida');
-          this.onRewardCallback?.();
-          this.onRewardCallback = null;
-        }
-      )
-    );
+          this.rewardCallback?.();
+          this.rewardCallback = null;
+          break;
 
-    this.unsubscribeFns.push(
-      this.rewardedAd.addAdEventListener(
-        AdEventType.ERROR,
-        error => {
-          console.log('[ADMOB] Erro no Rewarded:', error);
-          this.resetAd();
-        }
-      )
-    );
-
-    this.unsubscribeFns.push(
-      this.rewardedAd.addAdEventListener(
-        AdEventType.CLOSED,
-        () => {
+        case AdEventType.CLOSED:
           console.log('[ADMOB] Rewarded fechado');
-          this.resetAd();
-        }
-      )
-    );
+          this.cleanup();
+          this.createAd();
+          break;
+
+        case AdEventType.ERROR:
+          console.log('[ADMOB] Erro no Rewarded');
+          this.cleanup();
+          this.createAd();
+          break;
+      }
+    });
   }
 
-  private resetAd() {
-    this.cleanupListeners();
+  private cleanup() {
+    this.unsubscribe?.();
+    this.unsubscribe = null;
     this.rewardedAd = null;
-    this.loaded = false;
-    this.onRewardCallback = null;
-    this.createAd();
+    this.isAdLoaded = false;
+    this.rewardCallback = null;
+  }
+
+  /* =====================
+      API pública
+  ====================== */
+
+  public load() {
+    if (!this.rewardedAd) {
+      this.createAd();
+    }
+
+    if (!this.isAdLoaded) {
+      this.rewardedAd?.load();
+    }
   }
 
   public isLoaded(): boolean {
-    return this.loaded;
+    return this.isAdLoaded;
   }
 
-  load() {
-    if (!this.rewardedAd || this.loaded) return;
-    this.rewardedAd.load();
-  }
+  public show(onReward: RewardCallback) {
+    if (!this.rewardedAd || !this.isAdLoaded) {
+      console.warn('[ADMOB] Rewarded não está pronto');
+      return;
+    }
 
-  public show(onReward: () => void) {
-    if (!this.rewardedAd || !this.loaded) return;
-
-    this.onRewardCallback = onReward;
-    this.loaded = false;
+    this.rewardCallback = onReward;
+    this.isAdLoaded = false;
 
     this.rewardedAd.show();
   }

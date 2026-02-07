@@ -18,10 +18,11 @@ const config: ExpoConfig = {
       "react-native-google-mobile-ads",
       
       {
-        androidAppId: "ca-app-pub-3935068450266170~5377767330"
-      }
-    ]
-  ]
+        androidAppId: "ca-app-pub-3935068450266170~5377767330",
+        iosAppId: "ca-app-pub-3935068450266170~5377767330",
+      },
+    ],
+  ],
 };
 
 export default config;

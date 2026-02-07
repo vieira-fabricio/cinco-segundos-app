@@ -9,6 +9,7 @@ export function useGameLogic() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
   const [score, setScore] = useState(0);
   
@@ -18,66 +19,76 @@ export function useGameLogic() {
   // Inicializa jogo
   const startGame = useCallback(() => {
     const selectedQuestions = questionService.getRandom(QUESTIONS_PER_GAME);
+
     setQuestions(selectedQuestions);
     setCurrentIndex(0);
-    setCurrentQuestion(selectedQuestions[0]);
+    setCurrentQuestion(selectedQuestions[0] ?? null);
     setScore(0);
     setTimeLeft(INITIAL_TIME);
     setIsGameOver(false);
     setIsFinalGameOver(false);
   }, []);
 
+  //Controle de falha
+  const failGame = useCallback(() => {
+    setIsGameOver(prev => (prev ? prev : true));
+  }, []);
+
   // Reviver após Rewarded Ad
-  const revive = () => {
-    if (!currentQuestion) return;
+  const revive = useCallback(() => {
+    if (isFinalGameOver) return;
 
     setIsGameOver(false);
     setTimeLeft(INITIAL_TIME);
-  };
-
-  const failGame = () => {
-    setIsGameOver(true);
-  };
+  }, [isFinalGameOver]);
 
   // Timer
   useEffect(() => {
     if (isGameOver || isFinalGameOver || !currentQuestion) return;
 
-    if (timeLeft <= 0) {
-      const timeout = setTimeout(() => {
-        failGame();
-      }, 600);
-
-      return () => clearTimeout(timeout);
-    }
-
-    const timer = setTimeout(() => {
-      setTimeLeft((prev) => prev - 1);
+    const interval = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          failGame();
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [timeLeft, isGameOver, isFinalGameOver, currentQuestion]);
+      return () => clearInterval(interval);
+  }, [isGameOver, isFinalGameOver, currentQuestion, failGame]);
 
   // Responder pergunta
-  const answerQuestion = (answer: string) => {
-    if (!currentQuestion || isGameOver) return;
+  const answerQuestion = useCallback(
+    (answer: string) => {
+      if (!currentQuestion || isGameOver) return;
 
-    if (answer === currentQuestion.correctAnswer) {
-      const nextIndex = currentIndex + 1;
-      setScore((prev) => prev + 1);
-
-      if (nextIndex < questions.length) {
-        setCurrentIndex(nextIndex);
-        setCurrentQuestion(questions[nextIndex]);
-        setTimeLeft(INITIAL_TIME);
-      } else {
-        setIsGameOver(true);
-        setIsFinalGameOver(true); // terminou as perguntas
+      if (answer !== currentQuestion.correctAnswer) {
+        failGame();
+        return;
       }
-    } else {
-      failGame();
-    }
-  };
+
+      setScore(prev => prev + 1);
+
+      setCurrentIndex(prevIndex => {
+        const nextIndex = prevIndex + 1;
+
+        if (nextIndex < questions.length) {
+          setCurrentQuestion(questions[nextIndex]);
+          setTimeLeft(INITIAL_TIME);
+          return nextIndex;
+        }
+
+        // Fim do jogo
+        setIsGameOver(true);
+        setIsFinalGameOver(true);
+        return prevIndex;
+      });
+    },
+    [currentQuestion, isGameOver, questions, failGame]
+  );
 
   return {
     currentQuestion,

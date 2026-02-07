@@ -37,11 +37,18 @@ export default function GameScreen() {
 
   useEffect(() => {
     startGame();
-  }, []);
+  }, [startGame]);
 
   // Pré-carrega rewarded
   useEffect(() => {
     rewardedService.load();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      setSelectedAnswer(null);
+      setIsAnswering(false);
+    };
   }, []);
 
   const handleContinue = () => {
@@ -52,7 +59,7 @@ export default function GameScreen() {
   };
 
   const handleAnswer = (option: string) => {
-    if (isAnswering) return;
+    if (isAnswering || isGameOver) return;
 
     setIsAnswering(true);
     setSelectedAnswer(option);
@@ -88,7 +95,6 @@ export default function GameScreen() {
     }
   }, [isGameOver, isFinalGameOver]);
 
-
   if (!currentQuestion) {
     return (
       <View style={styles.container}>
@@ -104,7 +110,7 @@ export default function GameScreen() {
 
         {showContinueOption && (
           <TouchableOpacity onPress={handleContinue}>
-            <Text>Continuar assistindo anúncio</Text>
+            <Text style={styles.primaryButtonText}>Continuar assistindo anúncio</Text>
           </TouchableOpacity>
         )}
 
@@ -147,13 +153,13 @@ export default function GameScreen() {
         </Text>
 
         <View style={styles.optionsContainer}>
-          {currentQuestion.options.map((option) => {
+          {currentQuestion.options.map((option, index) => {
             const isCorrect = option === currentQuestion.correctAnswer;
             const isSelected = option === selectedAnswer;
 
             return (
               <Animated.View
-                key={option}
+                key={`${currentQuestion.id}-${index}`}
                 style={[
                   animatedStyle,
                   isSelected &&
