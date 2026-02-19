@@ -1,34 +1,25 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter, useFocusEffect } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { styles } from '././styles';
-
-
-const BEST_SCORE_KEY = "@best_score";
+import { scoreService } from "../services/scoreService";
 
 export default function HomeScreen() {
   const router = useRouter();
   const [bestScore, setBestScore] = useState<number>(0);
 
-  useEffect(() => {
-    const loadBestScore = async () => {
-      try {
-        const value = await AsyncStorage.getItem(BEST_SCORE_KEY);
-        if (value !== null) {
-          const parsed = Number(value);
-          if(!Number.isNaN(parsed)) {
-            setBestScore(parsed);
-          }
-        }
-      } catch (error) {
-        console.warn("Erro ao carregar best score");
-      }
-    };
+  const loadBestScore = async () => {
+    const score = await scoreService.getBestScore();
+    setBestScore(score);
+  };
 
-    loadBestScore();
-  }, []);
+  // Carrega quando a tela ganha foco
+  useFocusEffect(
+    React.useCallback(() => {
+      loadBestScore();
+    }, [])
+  );
 
   const handleStartGame = useCallback(() => {
     router.push("/game");

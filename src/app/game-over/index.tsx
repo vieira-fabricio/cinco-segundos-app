@@ -1,17 +1,23 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useEffect } from "react";
 
 import { styles } from "../game-over/styles";
-
-type Props = {
-  score: number;
-};
+import { scoreService } from "@/src/services/scoreService";
 
 export default function GameOverScreen() {
   const router = useRouter();
   const { score } = useLocalSearchParams<{ score?: string }>();
 
-  const finalScore = Number(score ?? 0);
+  useEffect(() => {
+    const save = async () => {
+      if (score) {
+        await scoreService.saveScore(Number(score));
+      }
+    };
+
+    save();
+  }, []);
 
   const handleRestart = () => {
     router.replace("/game");
