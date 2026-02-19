@@ -116,12 +116,28 @@ export const styles = StyleSheet.create({
 
   scoreText: {
     color: "#CBD5E1",
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: "500",
   },
+
+  title: {
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#F8FAFC",
+    marginBottom: 16,
+  },
+  
   primaryButtonText: {
     fontSize: 16,
     fontWeight: "700",
     color: "#020617",
+  },
+  primaryButton: {
+    backgroundColor: "#38BDF8",
+    width: "100%",
+    paddingVertical: 16,
+    borderRadius: 14,
+    alignItems: "center",
+    marginTop: 24,
   },
 });

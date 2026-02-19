@@ -27,6 +27,8 @@ export default function GameScreen() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswering, setIsAnswering] = useState(false);
   const [showContinueOption, setShowContinueOption] = useState(false);
+  const [isRewardedReady, setIsRewardedReady] = useState(false);
+
 
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({
@@ -52,6 +54,11 @@ export default function GameScreen() {
   }, []);
 
   const handleContinue = () => {
+    if (!rewardedService.isLoaded()) {
+      console.log("Reward ainda não carregado");
+      return;
+    }
+    
     rewardedService.show(() => {
       revive();
       rewardedService.load(); // pré-carrega o próximo
@@ -88,11 +95,24 @@ export default function GameScreen() {
 
   //CONTINUAR
   useEffect(() => {
-    if (isGameOver && !isFinalGameOver) {
-      setShowContinueOption(rewardedService.isLoaded());
-    } else {
+    if (!isGameOver && isFinalGameOver) {
       setShowContinueOption(false);
+      return;
     }
+
+    rewardedService.load();
+
+    const checkLoaded = () => {
+      if (rewardedService.isLoaded()) {
+        setShowContinueOption(true);
+      }
+    };
+
+    checkLoaded(); // checa imediatamente
+
+    const interval = setInterval(checkLoaded, 500);
+
+    return () => clearInterval(interval);
   }, [isGameOver, isFinalGameOver]);
 
   if (!currentQuestion) {
@@ -108,24 +128,26 @@ export default function GameScreen() {
       <View style={styles.container}>
         <Text style={styles.scoreText}>Score: {score}</Text>
 
-        {showContinueOption && (
-          <TouchableOpacity onPress={handleContinue}>
-            <Text style={styles.primaryButtonText}>Continuar assistindo anúncio</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity 
+        style={styles.primaryButton}
+        onPress={handleContinue}
+        activeOpacity={0.85}
+        >
+          <Text style={styles.primaryButtonText}>
+            Continuar assistindo anúncio
+          </Text>
+        </TouchableOpacity>
 
-        {!showContinueOption && (
-          <TouchableOpacity
-            onPress={() =>
-              router.replace({
-                pathname: "/game-over",
-                params: { score: String(score) },
-              })
-            }
-          >
-          <Text>Finalizar jogo</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={() =>
+            router.replace({
+              pathname: "/game-over",
+              params: { score: String(score) },
+            })
+          }
+        >
+          <Text style={styles.title}>Finalizar jogo</Text>
+        </TouchableOpacity>
       </View>
     );
   }

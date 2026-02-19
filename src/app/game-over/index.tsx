@@ -1,7 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-import { rewardedService } from "@/src/services/RewardedService";
 import { styles } from "../game-over/styles";
 
 type Props = {
@@ -18,18 +17,6 @@ export default function GameOverScreen() {
     router.replace("/game");
   };
 
-  const handleContinueWithAd = () => {
-    if (!rewardedService.isLoaded()) {
-      return;
-    }
-
-    rewardedService.show(() => {
-      router.replace("/game");
-    });
-
-    rewardedService.load();
-  };
-
   const handleGoHome = () => {
     router.replace("/");
   };
@@ -40,17 +27,6 @@ export default function GameOverScreen() {
 
       <Text style={styles.scoreLabel}>Seu Score</Text>
       <Text style={styles.scoreValue}>{score}</Text>
-
-      {/* CONTINUAR COM AD */}
-      <TouchableOpacity
-        style={styles.primaryButton}
-        onPress={handleContinueWithAd}
-        activeOpacity={0.85}
-      >
-        <Text style={styles.primaryButtonText}>
-          Continuar (Assistir Anúncio)
-        </Text>
-      </TouchableOpacity>
 
       {/* NOVA PARTIDA */}
       <TouchableOpacity
