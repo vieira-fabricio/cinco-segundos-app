@@ -5,12 +5,19 @@ const config: ExpoConfig = {
   slug: "app-quiz",
   version: "1.0.0",
 
+  icon: "./assets/images/icon.png",
+
   ios: {
     "bundleIdentifier": "com.appquiz.quiz"
   },
 
   android: {
-    package: "com.appquiz.quiz"
+    package: "com.appquiz.quiz",
+
+    adaptiveIcon: {
+      foregroundImage: "./assets/images/adaptive-icon.png",
+      backgroundColor: "#ffffff"
+    }
   },
 
   plugins: [
