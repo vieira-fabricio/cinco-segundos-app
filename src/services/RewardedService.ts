@@ -12,6 +12,7 @@ class RewardedService {
   private isAdLoaded = false;
   private rewardCallback: RewardCallback | null = null;
   private unsubscribe: (() => void) | null = null;
+  private hasEarnedReward = false;
 
   /* =====================
      Inicialização
@@ -20,6 +21,7 @@ class RewardedService {
   private createAd() {
 
     this.isAdLoaded = false;
+    this.hasEarnedReward = false;
 
     this.rewardedAd = RewardedAd.createForAdRequest(
         __DEV__ 
@@ -42,20 +44,29 @@ class RewardedService {
 
         case RewardedAdEventType.EARNED_REWARD:
           console.log('[ADMOB] Recompensa concedida');
-          this.rewardCallback?.();
-          this.rewardCallback = null;
+          if (!this.hasEarnedReward) {
+
+            this.hasEarnedReward = true;
+
+            const callback = this.rewardCallback;
+            this.rewardCallback = null;
+
+            callback?.();
+          }
           break;
 
         case AdEventType.CLOSED:
           console.log('[ADMOB] Rewarded fechado');
           this.cleanup();
           this.createAd();
+          this.rewardedAd?.load();
           break;
 
         case AdEventType.ERROR:
           console.log('[ADMOB] Erro no Rewarded');
           this.cleanup();
           this.createAd();
+          this.rewardedAd?.load();
           break;
       }
     });
@@ -64,9 +75,11 @@ class RewardedService {
   private cleanup() {
     this.unsubscribe?.();
     this.unsubscribe = null;
+
     this.rewardedAd = null;
     this.isAdLoaded = false;
     this.rewardCallback = null;
+    this.hasEarnedReward = false;
   }
 
   /* =====================
@@ -87,14 +100,13 @@ class RewardedService {
     return this.isAdLoaded;
   }
 
-  public show(onReward: RewardCallback) {
+  public show(callback: RewardCallback) {
     if (!this.rewardedAd || !this.isAdLoaded) {
       console.warn('[ADMOB] Rewarded não está pronto');
       return;
     }
 
-    this.rewardCallback = onReward;
-    this.isAdLoaded = false;
+    this.rewardCallback = callback;
 
     this.rewardedAd.show();
   }

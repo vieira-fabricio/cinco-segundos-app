@@ -40,6 +40,9 @@ export function useGameLogic() {
 
     setIsGameOver(false);
     setTimeLeft(INITIAL_TIME);
+
+    // força refresh da pergunta atual
+    setCurrentQuestion(prev => prev ? { ...prev } : prev);
   }, [isFinalGameOver]);
 
   // Timer
