@@ -12,11 +12,17 @@ const config: ExpoConfig = {
   },
 
   android: {
-    package: "com.appquiz.quiz",
+    package: "com.fabricio.appquiz",
+    versionCode: 1,
 
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff"
+    }
+  },
+  extra: {
+    eas: {
+      projectId: "bc5b766b-cc69-4bfc-a28c-62f816195c17"
     }
   },
 

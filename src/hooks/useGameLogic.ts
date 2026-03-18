@@ -39,10 +39,11 @@ export function useGameLogic() {
     if (isFinalGameOver) return;
 
     setIsGameOver(false);
-    setTimeLeft(INITIAL_TIME);
 
-    // força refresh da pergunta atual
-    setCurrentQuestion(prev => prev ? { ...prev } : prev);
+    // força novo ciclo de render
+    setTimeout(() => {
+      setTimeLeft(INITIAL_TIME);
+    }, 0);
   }, [isFinalGameOver]);
 
   // Timer
@@ -76,21 +77,24 @@ export function useGameLogic() {
       setScore(prev => prev + 1);
 
       setCurrentIndex(prevIndex => {
-        const nextIndex = prevIndex + 1;
 
-        if (nextIndex < questions.length) {
-          setCurrentQuestion(questions[nextIndex]);
-          setTimeLeft(INITIAL_TIME);
-          return nextIndex;
-        }
+      const nextIndex = prevIndex + 1;
 
-        // Fim do jogo
+      if (nextIndex >= questions.length) {
+        console.log("FINAL GAME OVER DISPARADO");
         setIsGameOver(true);
         setIsFinalGameOver(true);
         return prevIndex;
-      });
+      }
+
+      setCurrentQuestion(questions[nextIndex]);
+      setTimeLeft(INITIAL_TIME);
+
+      return nextIndex;
+    });
+
     },
-    [currentQuestion, isGameOver, questions, failGame]
+    [currentQuestion, isGameOver, questions, failGame, currentIndex]
   );
 
   return {

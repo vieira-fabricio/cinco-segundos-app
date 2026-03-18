@@ -44,19 +44,18 @@ class RewardedService {
 
         case RewardedAdEventType.EARNED_REWARD:
           console.log('[ADMOB] Recompensa concedida');
-          if (!this.hasEarnedReward) {
-
-            this.hasEarnedReward = true;
-
-            const callback = this.rewardCallback;
-            this.rewardCallback = null;
-
-            callback?.();
-          }
+          this.hasEarnedReward = true;
           break;
 
         case AdEventType.CLOSED:
           console.log('[ADMOB] Rewarded fechado');
+
+          if (this.hasEarnedReward) {
+            const callback = this.rewardCallback;
+            this.rewardCallback = null;
+            callback?.();
+          }
+
           this.cleanup();
           this.createAd();
           this.rewardedAd?.load();
