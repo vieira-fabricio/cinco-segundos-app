@@ -30,6 +30,7 @@ export default function GameScreen() {
   const [isAnswering, setIsAnswering] = useState(false);
   const [showContinueOption, setShowContinueOption] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
+  const [renderKey, setRenderKey] = useState(0);
 
 
   const scale = useSharedValue(1);
@@ -65,7 +66,11 @@ export default function GameScreen() {
     
     rewardedService.show(() => {
       revive();
-      rewardedService.load(); // pré-carrega o próximo
+
+      // 🔥 força atualização real da tela
+      setRenderKey(prev => prev + 1);
+
+      rewardedService.load();
     });
   };
 
@@ -92,23 +97,27 @@ export default function GameScreen() {
 
     setIsFinishing(true);
 
-    interstitialService.show(() => {
-      router.replace({
-        pathname: "/game-over",
-        params: { score: String(score) },
+    setTimeout(() => {
+      interstitialService.show(() => {
+        router.replace({
+          pathname: "/game-over",
+          params: { score: String(score) },
+        });
       });
-    });
+    }, 0);
   };
 
   // GAME OVER
   useEffect(() => {
-    if (!isFinalGameOver) return;
+    if (!isFinalGameOver || isFinishing) return;
+
     finalizeGame();
-  }, [isFinalGameOver, score]);
+
+  }, [isFinalGameOver, isFinishing]);
 
   //CONTINUAR
   useEffect(() => {
-    if (!isGameOver && isFinalGameOver) {
+    if (!isGameOver) {
       setShowContinueOption(false);
       return;
     }
@@ -137,21 +146,23 @@ export default function GameScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View key={renderKey} style={styles.container}>
       {isGameOver && !isFinalGameOver ? (
 
       <View>
         <Text style={styles.scoreText}>Score: {score}</Text>
 
-        <TouchableOpacity 
-          style={styles.primaryButton}
-          onPress={handleContinue}
-          activeOpacity={0.85}
-        >
-          <Text style={styles.primaryButtonText}>
-            Continuar assistindo anúncio
-          </Text>
-        </TouchableOpacity>
+        {showContinueOption && (
+          <TouchableOpacity 
+            style={styles.primaryButton}
+            onPress={handleContinue}
+            activeOpacity={0.85}
+          >
+            <Text style={styles.primaryButtonText}>
+              Continuar assistindo anúncio
+            </Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity onPress={finalizeGame}>
           <Text style={styles.title}>Finalizar jogo</Text>
